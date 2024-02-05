@@ -3,6 +3,7 @@ import {Row, Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup
 import Base from "./Base";
 import { useEffect, useState } from "react";
 import { signUp } from "../services/user-services";
+import{ toast} from 'react-toastify'
 
 const Signup=()=>{
 
@@ -11,7 +12,7 @@ const Signup=()=>{
     name:'',
     email:'',
     password:'',
-    mobileNo:'',
+    phone_no:'',
     gender:'',
     about:''
 
@@ -32,28 +33,60 @@ const Signup=()=>{
 
 
   // submit form
-  const submitForm= (event)=>{
+  const submitForm= async (event)=>{
     event.preventDefault()
     console.log(data);
 
     //data validation
 
     //call server api for sending data
-    signUp(data).then((resp)=>{
-      console.log("Success log");
-    }).catch((error)=>{
-      console.log(error)
-      console.log("Error log");
-    })
+    // const response = signUp(data).then((resp)=>{
+      
+    //   toast.success('🦄 Registration Successful !', {
+    //     position: "top-left",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light"
+    //     });
+    // }).catch((error)=>{
+    //   console.log(error)
+    //   console.log("Error log");
+    // });
+    
 
-    // event.preventDefault()
-    // try {
-    //   const response = await signUp(data);
-    //   console.log(response?.data);
+    event.preventDefault()
+    try {
+      const response = await signUp(data);
+      body: JSON.stringify(data);
 
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      const result = response.data;
+      console.log(result);
+          toast.success(result.message, {
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+            });
+            setData({
+              name:'',
+              email:'',
+              password:'',
+              phone_no:'',
+              gender:'',
+              about:''
+            });
+
+    } catch (error) {
+      console.error(error);
+    }
 
 
   };
@@ -65,7 +98,7 @@ const Signup=()=>{
       name:'',
     email:'',
     password:'',
-    mobileNo:'',
+    phone_no:'',
     gender:'',
     about:''}
     )
@@ -120,13 +153,13 @@ const Signup=()=>{
                   value={data.password}/>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="MobileNo">Enter Mobile Number</Label>
+                  <Label for="phone_no">Enter Mobile Number</Label>
                   <Input
                   type="number"
-                  name="mobile number"
-                  id="MobileNo"
-                  onChange={(e)=>handleChange(e,'mobileNo')}
-                  value={data.mobileNo}/>
+                  name="phone_no"
+                  id="phone_no"
+                  onChange={(e)=>handleChange(e,'phone_no')}
+                  value={data.phone_no}/>
                 </FormGroup>
                 <FormGroup>
                   <Label for="Gender">Enter Gender</Label>
