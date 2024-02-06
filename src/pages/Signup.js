@@ -1,9 +1,10 @@
 
-import {Row, Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label } from "reactstrap";
+import {Row, Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, FormFeedback } from "reactstrap";
 import Base from "./Base";
 import { useEffect, useState } from "react";
 import { signUp } from "../services/user-services";
 import{ toast} from 'react-toastify'
+import { useNavigate } from "react-router-dom";
 
 const Signup=()=>{
 
@@ -17,11 +18,12 @@ const Signup=()=>{
     about:''
 
   });
+  const navigate = useNavigate();
 
 
   const [error, setError] = useState({
     errors:{},
-    isError:'false'
+    isError:false
   });
 
   // useEffect(()=>{console.log(data);},[data])
@@ -34,8 +36,8 @@ const Signup=()=>{
 
   // submit form
   const submitForm= async (event)=>{
-    event.preventDefault()
-    console.log(data);
+    // event.preventDefault()
+    // console.log(data);
 
     //data validation
 
@@ -59,15 +61,22 @@ const Signup=()=>{
     
 
     event.preventDefault()
+
+    if(error.isError){
+      toast.error(error.errors?.response?.data?.message)
+      setError({...error,isError:false})
+      return;
+    }
     try {
       const response = await signUp(data);
       body: JSON.stringify(data);
 
       const result = response.data;
       console.log(result);
-          toast.success(result.message, {
+      const userId = result.userDetails.id;
+          toast.success(`${result.message} with userId: ${userId}`, {
             position: "top-left",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -75,6 +84,14 @@ const Signup=()=>{
             progress: undefined,
             theme: "light"
             });
+
+            if(result.success===true){
+               // Wait for the toast to close (500 milliseconds) and then navigate to the login page
+                setTimeout(() => {
+                  // Navigate to the login page
+                  navigate('/login');
+                }, 3500);
+            }
             setData({
               name:'',
               email:'',
@@ -86,6 +103,11 @@ const Signup=()=>{
 
     } catch (error) {
       console.error(error);
+      console.log("Error log")
+      setError({
+        errors:error,
+        isError:true
+      })
     }
 
 
@@ -123,6 +145,8 @@ const Signup=()=>{
             </CardHeader>
             <CardBody>
               <Form onSubmit={submitForm}>
+
+                {/* name fields */}
                 <FormGroup>
                   <Label for="name">Enter Name</Label>
                   <Input
@@ -131,7 +155,11 @@ const Signup=()=>{
                   placeholder="Enter Name here"
                   id="name"
                   onChange={(e)=>handleChange(e,'name')}
-                  value={data.name}/>
+                  value={data.name}
+                  invalid={error.errors?.response?.data?.name?true:false}/>
+                  <FormFeedback>
+                    {error.errors?.response?.data?.name}
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="email">Enter email</Label>
@@ -141,7 +169,11 @@ const Signup=()=>{
                   placeholder="Enter email here"
                   id="email"
                   onChange={(e)=>handleChange(e,'email')}
-                  value={data.email}/>
+                  value={data.email}
+                  invalid={error.errors?.response?.data?.email?true:false}/>
+                  <FormFeedback>
+                    {error.errors?.response?.data?.email}
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="password">Enter password</Label>
@@ -150,7 +182,11 @@ const Signup=()=>{
                   name="password"
                   id="password"
                   onChange={(e)=>handleChange(e,'password')}
-                  value={data.password}/>
+                  value={data.password}
+                  invalid={error.errors?.response?.data?.password?true:false}/>
+                  <FormFeedback>
+                    {error.errors?.response?.data?.password}
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="phone_no">Enter Mobile Number</Label>
@@ -159,7 +195,11 @@ const Signup=()=>{
                   name="phone_no"
                   id="phone_no"
                   onChange={(e)=>handleChange(e,'phone_no')}
-                  value={data.phone_no}/>
+                  value={data.phone_no}
+                  invalid={error.errors?.response?.data?.phone_no?true:false}/>
+                  <FormFeedback>
+                    {error.errors?.response?.data?.phone_no}
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="Gender">Enter Gender</Label>
@@ -169,7 +209,11 @@ const Signup=()=>{
                   id="Gender"
                   placeholder="Male/Female"
                   onChange={(e)=>handleChange(e,'gender')}
-                  value={data.gender}/>
+                  value={data.gender}
+                  invalid={error.errors?.response?.data?.gender?true:false}/>
+                  <FormFeedback>
+                    {error.errors?.response?.data?.gender}
+                  </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label for="About">Describe Yourself </Label>
@@ -178,7 +222,11 @@ const Signup=()=>{
                   name="about"
                   id="About"
                   onChange={(e)=>handleChange(e,'about')}
-                  value={data.about}/>
+                  value={data.about}
+                  invalid={error.errors?.response?.data?.about?true:false}/>
+                  <FormFeedback>
+                    {error.errors?.response?.data?.about}
+                  </FormFeedback>
                 </FormGroup>
                 <Container className="text-center">
                   <Button color="primary" className="mx-3">
