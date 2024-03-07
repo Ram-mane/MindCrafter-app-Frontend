@@ -2,7 +2,7 @@ import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, In
 import Base from "./Base";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { userLogin } from "../services/user-services";
 import { doLogin } from "../authFunc";
 
@@ -49,14 +49,17 @@ const Login=()=>{
         // save the data to localstorage
         doLogin(response.data,()=>{
           console.log("login details saved to the localstorage !")
+          navigate('/user/dashbord');
+
         })
       
         toast.success(`${response.data.message}`);
+        
 
     } catch (error) {
       console.error(error);
-      if(error.response.status==404 || error.response.status==400){
-        toast.error(error.response.data.message)
+      if(error.response.status==404 || error?.response?.status==400){
+        toast.error(error?.response?.data?.message)
       }else{
         toast.error("Server down !")
       }

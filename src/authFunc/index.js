@@ -12,9 +12,10 @@ export const doLogin=(data, next) => {
 // isLoggedIn => cheack if the user is loggedIn
 export  const isLoggedIn=()=>{
     let data = localStorage.getItem('data');
-    if(data ==null){
-        return false;
-    }else true;
+    console.log(data);
+    if(data !=null){
+        return true;
+    }else false;
 };
 
 // doLogout => remove from local storage
@@ -26,9 +27,9 @@ export const doLogout=(next)=>{
 
 //get current user
 export const  getCurrentUserDetails=()=>{
-    if(isLoggedIn){
-        return JSON.parse(localStorage.getItem('data').user);
+    if(isLoggedIn()){
+        return JSON.parse(localStorage.getItem('data'))?.userDetails;
     }else{
-        return false;
+        return undefined;
     }
 };
