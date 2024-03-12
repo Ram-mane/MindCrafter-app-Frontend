@@ -16,7 +16,9 @@ export  const isLoggedIn=()=>{
     // console.log(data);
     if(data !=null){
         return true;
-    }else false;
+    }else {
+        return false;
+    };
 };
 
 // doLogout => remove from local storage
@@ -38,7 +40,7 @@ export const  getCurrentUserDetails=()=>{
 //get current user token
 
 export const getToken=()=>{
-    if(isLoggedIn){
+    if(isLoggedIn()){
         return JSON.parse(localStorage.getItem('data'))?.token;
     }  else return undefined;
 }
