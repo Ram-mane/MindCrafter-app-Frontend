@@ -1,13 +1,13 @@
+import { Container } from "reactstrap";
+import NewFeed from "../components/NewFeed";
 import Base from "./Base";
 
 const Home=()=>{
     return(
         <Base>
-        <div>
-        <h1>This is home page </h1>
-        <p>Welcome to home page</p>
-      
-      </div>
+       <Container className="mt-3">
+           <NewFeed/>
+       </Container>
       </Base>
     );
 };

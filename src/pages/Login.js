@@ -58,7 +58,7 @@ const Login=()=>{
 
     } catch (error) {
       console.error(error);
-      if(error.response.status==404 || error?.response?.status==400){
+      if(error?.response?.status==404 || error?.response?.status==400){
         toast.error(error?.response?.data?.message)
       }else{
         toast.error("Server down !")

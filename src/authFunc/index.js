@@ -2,6 +2,7 @@
 
 // doLogin => data => set to localStorage
 
+
 export const doLogin=(data, next) => {
     localStorage.setItem('data',JSON.stringify(data));
     next();
@@ -12,7 +13,7 @@ export const doLogin=(data, next) => {
 // isLoggedIn => cheack if the user is loggedIn
 export  const isLoggedIn=()=>{
     let data = localStorage.getItem('data');
-    console.log(data);
+    // console.log(data);
     if(data !=null){
         return true;
     }else false;
@@ -33,3 +34,11 @@ export const  getCurrentUserDetails=()=>{
         return undefined;
     }
 };
+
+//get current user token
+
+export const getToken=()=>{
+    if(isLoggedIn){
+        return JSON.parse(localStorage.getItem('data'))?.token;
+    }  else return undefined;
+}
