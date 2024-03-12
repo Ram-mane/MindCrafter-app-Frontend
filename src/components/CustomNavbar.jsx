@@ -46,7 +46,7 @@ const CustomNavbar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <NavLink tag={ReactLink} to="/">
+              <NavLink tag={ReactLink} to="/home">
                 New Feeds
               </NavLink>
             </NavItem>
