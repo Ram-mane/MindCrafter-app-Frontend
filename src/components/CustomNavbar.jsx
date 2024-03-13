@@ -86,7 +86,7 @@ const CustomNavbar = () => {
 
                 <NavItem>
                   <NavLink tag={ReactLink} to="/user/dashbord">
-                    {userDetails.name}
+                    {userDetails?.name}
                   </NavLink>
                 </NavItem>
 

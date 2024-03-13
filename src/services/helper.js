@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../authFunc";
 
-export const BASE_URL = "mindcrafter-backend.railway.internal";
+export const BASE_URL = "https://mindcrafter-backend-production.up.railway.app/";
 
 export const myAxios = axios.create({
   baseURL: BASE_URL,
