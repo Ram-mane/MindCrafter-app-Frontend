@@ -17,9 +17,15 @@ import { ToastContainer } from "react-toastify";
 import UserDashbord from "./pages/user-routes/UserDashbord";
 import Privateroute from "./components/Privateroute";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
+import ParticleBackground from "./ParticleBackground";
+import PostPage from "./pages/PostPage";
 function App() {
   return (
-    <BrowserRouter>
+
+    <div style={{ position: "relative" }}>
+        <ParticleBackground id="particles" />
+    <div style={{ position: "relative", zIndex: 1 }}>
+      <BrowserRouter>
       <ToastContainer
         position="top-center"
         autoClose={1000}
@@ -34,20 +40,23 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/posts/:postId" element={<PostPage />} />
 
+        {/* private routes */}
         <Route path="/user" element={<Privateroute />}>
           <Route path="dashbord" element={<UserDashbord />} />
           <Route path="profile-info" element={<ProfileInfo />} />
         </Route>
       </Routes>
     </BrowserRouter>
+    </div>
+    </div>
   );
 }
 

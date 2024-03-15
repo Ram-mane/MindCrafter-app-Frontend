@@ -1,0 +1,15 @@
+.shadows {
+    box-shadow: 0 0.5rem 1rem rgba(176, 25, 25, 0.84) !important;
+  }
+
+  .img1-container{
+    position: relative;
+    overflow: hidden;
+    width: 50%;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    .img1-container:hover {
+    transform: scale(1.1);
+    }
+  
