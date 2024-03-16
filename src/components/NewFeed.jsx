@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import Post from "./Post";
 import { toast } from "react-toastify";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const NewFeed = () => {
   const [posts, setPosts] = useState({
@@ -21,9 +22,11 @@ const NewFeed = () => {
     pageNumber: "",
   });
 
+  const [currentPage, setCurrentPage] = useState(0);
+
   useEffect(() => {
-    handlePageChange(0);
-  }, []);
+    handlePageChange(currentPage);
+  }, [currentPage]);
 
   const handlePageChange = (pageNumber = 0, pageSize = 4) => {
     if (pageNumber > posts.pageNumber && posts.lastPage) {
@@ -35,12 +38,25 @@ const NewFeed = () => {
 
     loadAllPosts(pageNumber, pageSize)
       .then((data) => {
-        setPosts(data);
-        window.scroll(0, 0);
+        setPosts({
+          content: [...posts.content, ...data.content],
+          pageSize: data.pageSize,
+          totalElements: data.totalElements,
+          lastPage: data.lastPage,
+          totalPages: data.totalPages,
+          pageNumber: data.pageNumber,
+        });
+        // setPosts(data);
+        // window.scroll(0, 0);
       })
       .catch((error) => {
         toast.error("error loading posts !");
       });
+  };
+
+  const handleInfiniteScroll = () => {
+    console.log("page changed ");
+    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -54,9 +70,23 @@ const NewFeed = () => {
         >
           <h1>post count {posts?.totalElements}</h1>
 
-          {posts?.content.map((post) => (
-            <Post post={post} key={post.postId} />
-          ))}
+          {posts && (
+            <InfiniteScroll
+              dataLength={posts.content.length} //This is important field to render the next data
+              next={handleInfiniteScroll}
+              hasMore={!posts.lastPage}
+              loader={<h4>Loading...</h4>}
+              endMessage={
+                <p style={{ textAlign: "center",fontFamily:'cursive', fontWeight:'-moz-initial' }}>
+                  <b>Why not jazz it up with a few more ? </b>
+                </p>
+              }
+            >
+              {posts?.content.map((post) => (
+                <Post post={post} key={post.postId} />
+              ))}
+            </InfiniteScroll>
+          )}
 
           {/* <Container className="mt-3">
             <Pagination size="md">

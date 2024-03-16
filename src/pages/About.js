@@ -1,11 +1,17 @@
+import { useContext } from "react";
+import userContext from "../context/userContext";
 import Base from "./Base";
 
+const About = () => {
 
-const About = () =>{
-    return (
+    const user = useContext(userContext);
+  return (
+    
         <Base>
-        <h3>This is my About component </h3>
+          <h2>This is my About component </h2>
+          <h3>Hello : {user.name} your id is {user.id}</h3>
         </Base>
-    );
+     
+  );
 };
 export default About;

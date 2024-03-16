@@ -19,10 +19,12 @@ import Privateroute from "./components/Privateroute";
 import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import ParticleBackground from "./ParticleBackground";
 import PostPage from "./pages/PostPage";
+import UserProvider from "./context/UserProvider";
 function App() {
   return (
 
-    <div style={{ position: "relative" }}>
+    <UserProvider>
+      <div style={{ position: "relative" }}>
         <ParticleBackground id="particles" />
     <div style={{ position: "relative", zIndex: 1 }}>
       <BrowserRouter>
@@ -57,6 +59,7 @@ function App() {
     </BrowserRouter>
     </div>
     </div>
+    </UserProvider>
   );
 }
 

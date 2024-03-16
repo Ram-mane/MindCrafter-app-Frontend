@@ -4,7 +4,6 @@ import { Button, Card, CardBody, CardText } from 'reactstrap'
 
 function Post({post={title:"Post Title",content:"post content"}}) {
 
-    console.log("title ",post)
   return (
     <Card className='border-0 shadow-sm mt-3'>
         <CardBody>
