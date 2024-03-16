@@ -34,3 +34,11 @@ export const loadPostById =(postId)=>{
       return response.data;
    })
 }
+
+// add comments
+
+export const addComments =(postId, userId ,commentData)=>{
+   return privateAxios.post(
+      `/api/user/${userId}/posts/${postId}/comment`,commentData
+   )
+}

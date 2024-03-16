@@ -25,7 +25,7 @@ const NewFeed = () => {
     handlePageChange(0);
   }, []);
 
-  const handlePageChange = (pageNumber = 0, pageSize = 3) => {
+  const handlePageChange = (pageNumber = 0, pageSize = 4) => {
     if (pageNumber > posts.pageNumber && posts.lastPage) {
       return;
     }
@@ -58,7 +58,7 @@ const NewFeed = () => {
             <Post post={post} key={post.postId} />
           ))}
 
-          <Container className="mt-3">
+          {/* <Container className="mt-3">
             <Pagination size="md">
               <PaginationItem
                 disabled={posts.pageNumber == 0}
@@ -84,7 +84,7 @@ const NewFeed = () => {
                 <PaginationLink next>Next</PaginationLink>
               </PaginationItem>
             </Pagination>
-          </Container>
+          </Container> */}
         </Col>
       </Row>
     </div>
