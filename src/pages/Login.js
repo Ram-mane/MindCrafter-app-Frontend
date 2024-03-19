@@ -38,6 +38,7 @@ const Login=()=>{
      // validation
      if(loginData.username.trim()=='' || loginData.password.trim()==''){
       toast.error('username  or password must not be empty !')
+      return;
      }
 
      // submit the data to server
