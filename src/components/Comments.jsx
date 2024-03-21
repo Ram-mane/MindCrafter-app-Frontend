@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { addComments } from "../services/post-services";
-import { Toast } from "reactstrap";
 import { toast } from "react-toastify";
 import { getCurrentUserDetails, isLoggedIn } from "../authFunc";
 
