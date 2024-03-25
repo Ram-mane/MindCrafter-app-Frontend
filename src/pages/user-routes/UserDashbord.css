@@ -1,0 +1,15 @@
+/* UserDashboard.css */
+.animated-text {
+    font-family: 'cursive';
+    animation: showLetters 2s linear infinite; /* Adjust animation duration as needed */
+  }
+  
+  @keyframes showLetters {
+    0% { 
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

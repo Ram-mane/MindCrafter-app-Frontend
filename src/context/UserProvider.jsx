@@ -8,12 +8,7 @@ function UserProvider({children}) {
         id: getCurrentUserDetails()?.id
     })
 
-    // useEffect(()=>{
-    //     setUser({
-    //         name:'',
-    //         id:''
-    //     })
-    // },[!isLoggedIn])
+    
   return (
 <userContext.Provider value={user}>
     {children}

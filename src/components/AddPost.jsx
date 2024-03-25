@@ -11,8 +11,9 @@ import {
 import { loadAllCategories } from "../services/category-services";
 import JoditEditor from "jodit-react";
 import { toast } from "react-toastify";
-import { addPost } from "../services/post-services";
+import { addPost, uploadImage } from "../services/post-services";
 import { getCurrentUserDetails } from "../authFunc";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 const AddPost = () => {
   const editor = useRef(null);
@@ -25,6 +26,13 @@ const AddPost = () => {
     content: "",
     categoryId: "",
   });
+
+  const [file, setFile] = useState(null); // image file
+
+  const handleFileChange = (event) => {
+    console.log(event.target.files[0]);
+    setFile(event.target.files[0]);
+  }
 
   useEffect(() => {
 
@@ -49,7 +57,6 @@ const AddPost = () => {
       ...post,
       [event.target.name]: event.target.value,
     });
-    console.log(post);
   };
 
   const contentFieldChange = (data) => {
@@ -80,17 +87,35 @@ const AddPost = () => {
     // submit the form
     post['userId'] = user.id;
        addPost(post).then(response=>{
+        console.log("response "+response["Your post"].postId);
+
+          if(file){
+            uploadImage(file,response["Your post"].postId).then((resp)=>{
+              toast.success('Image Uploaded Successfully !' );
+
+              setFile(null);
+
+              console.log("response "+resp);
+            }).catch((error)=>{
+              toast.error('Failed to upload Image !' );
+              console.log("error "+error);
+            })
+          }
+
         toast.success('🦄 Post Created Successfully !' );
 
         setPost({
-          title: " ",
-          content: " ",
-          categoryId: " ",
+          title: "",
+          content: "",
+          categoryId: "",
         });
         console.log(response);
        }).catch((error)=>{
+        console.log("error "+error);
         toast.error('🦄 Failed to create Post !')
        })
+
+      
 
 
   };
@@ -107,6 +132,7 @@ const AddPost = () => {
               <Input
                 id="title"
                 type="text"
+                value={post.title}
                 placeholder="Enter post title..."
                 name="title"
                 onChange={fieldChange}
@@ -130,6 +156,20 @@ const AddPost = () => {
                   </option>
                 ))}
               </Input>
+
+              {/* image uploading */}
+
+              <div className="mt-3">
+                <Label for="image">Select Image Banner</Label>
+                <Input
+                  type="file"
+                  id="image"
+                  name="image"
+                  
+                  multiple
+                  onChange={handleFileChange}
+                />
+              </div>
 
               <Label for="content">Post Content</Label>
 

@@ -20,6 +20,7 @@ import ProfileInfo from "./pages/user-routes/ProfileInfo";
 import ParticleBackground from "./ParticleBackground";
 import PostPage from "./pages/PostPage";
 import UserProvider from "./context/UserProvider";
+import Categories from "./pages/Categories";
 function App() {
   return (
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/posts/:postId" element={<PostPage />} />
+        <Route path="/category/:categoryId" element={<Categories />} />
 
         {/* private routes */}
         <Route path="/user" element={<Privateroute />}>

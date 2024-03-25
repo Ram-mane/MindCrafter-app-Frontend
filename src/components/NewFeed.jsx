@@ -11,6 +11,8 @@ import {
 import Post from "./Post";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Navigate, useNavigate } from "react-router-dom";
+import { isLoggedIn } from "../authFunc";
 
 const NewFeed = () => {
   const [posts, setPosts] = useState({
@@ -54,6 +56,20 @@ const NewFeed = () => {
       });
   };
 
+const navigate = useNavigate();
+
+  const navigateDashboard = () => {
+    if(isLoggedIn()) {
+      return navigate("/user/dashbord");
+    } else {
+      toast.error("Please login to jazz it up with more !");
+
+      setTimeout(() => {
+        return navigate("/login");
+      }
+      , 2000);}
+  }
+
   const handleInfiniteScroll = () => {
     console.log("page changed ");
     setCurrentPage(currentPage + 1);
@@ -64,11 +80,10 @@ const NewFeed = () => {
       <Row>
         <Col
           md={{
-            size: 10,
-            offset: 1,
+            size: 12
           }}
         >
-          <h1>post count {posts?.totalElements}</h1>
+          <h1 style={{fontFamily:'cursive'}}>post count : {posts?.totalElements}</h1>
 
           {posts && (
             <InfiniteScroll
@@ -78,7 +93,7 @@ const NewFeed = () => {
               loader={<h4>Loading...</h4>}
               endMessage={
                 <p style={{ textAlign: "center",fontFamily:'cursive', fontWeight:'-moz-initial' }}>
-                  <b>Why not jazz it up with a few more ? </b>
+                  <b onClick={navigateDashboard} style={{cursor:'pointer'}}>Why not jazz it up with a few more ? </b>
                 </p>
               }
             >

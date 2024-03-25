@@ -39,7 +39,7 @@ const CustomNavbar = () => {
   return (
     <div>
       <Navbar color="dark" dark expand="md" fixed=" " className="px-4">
-        <NavbarBrand tag={ReactLink} to="/">
+        <NavbarBrand tag={ReactLink} to="/" style={{fontFamily:'cursive', fontWeight:'lighter'}}>
           MindCrafter
         </NavbarBrand>
         <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
@@ -85,7 +85,7 @@ const CustomNavbar = () => {
                 </NavItem>
 
                 <NavItem>
-                  <NavLink tag={ReactLink} to="/user/dashbord">
+                  <NavLink tag={ReactLink} to="/user/dashbord" style={{fontFamily:'cursive'}}>
                     {userDetails?.name}
                   </NavLink>
                 </NavItem>
