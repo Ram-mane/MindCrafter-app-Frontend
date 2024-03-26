@@ -16,6 +16,11 @@ const Comments = ({ post }) => {
 
   const handleKeyPress = (event) => {
 
+    if(text.content.length>250){
+      toast.error('Comment should be less than 250 characters')
+      return;
+    }
+
     
     if (event.key === "Enter") {
       event.preventDefault();
@@ -35,7 +40,7 @@ const Comments = ({ post }) => {
           console.log("data ", data);
           setComments((prevComments) => [data.data, ...prevComments]); // Prepend new comment to comments state
           toast.success("Comment added");
-          setText({ content: "" }); // Clear the input field
+          setText({ content: " ",addedDate:'' }); // Clear the input field
         })
         .catch((error) => {
           toast.error("Log in to post comments");

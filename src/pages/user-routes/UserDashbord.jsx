@@ -4,7 +4,7 @@ import AddPost from '../../components/AddPost'
 import { Button, Container } from 'reactstrap'
 import { useContext } from 'react'
 import userContext from '../../context/userContext'
-import { getCurrentUserDetails } from '../../authFunc'
+import { getCurrentUserDetails, isLoggedIn } from '../../authFunc'
 import { deletePostByUser, getPostByUser } from '../../services/post-services'
 import { toast } from 'react-toastify'
 import Post from '../../components/Post'
@@ -37,16 +37,30 @@ const UserDashbord=()=> {
   console.log(displayedName)
 
   const deletePost = (postId) => {
-    console.log("delete post id ", postId);
 
-    deletePostByUser(postId).then(data => {
-      toast.success("Post deleted successfully !")
-      setPosts(posts.filter(post => post.postId !== postId))
-    }).catch(error => {
-      console.log(error)
-      toast.error("Error deleting post !")
-    })
-  }
+    if(!isLoggedIn()){
+      toast.error("Please Login to delet this post !")
+      return
+    
+    }
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+
+    
+
+    if (confirmDelete) {
+      deletePostByUser(postId)
+        .then(data => {
+          toast.success("Post deleted successfully !");
+          console.log("Deleted post with id ", postId);
+          setPosts(posts.filter(post => post.postId !== postId));
+        })
+        .catch(error => {
+          console.error("Error deleting post: ", error);
+          toast.error("Error deleting post !");
+        });
+    }
+  };
+  
 
   
   return (

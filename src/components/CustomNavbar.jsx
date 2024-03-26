@@ -38,7 +38,7 @@ const CustomNavbar = () => {
 
   return (
     <div>
-      <Navbar color="dark" dark expand="md" fixed=" " className="px-4">
+      <Navbar color="dark" dark expand="md" fixed=" " sticky="top" className="px-4">
         <NavbarBrand tag={ReactLink} to="/" style={{fontFamily:'cursive', fontWeight:'lighter'}}>
           MindCrafter
         </NavbarBrand>

@@ -97,15 +97,16 @@ const PostPage = () => {
                     <h3>{toUpperCase(post.title)}</h3>
                   </CardText>
                   <div
-                    className="image-container  mt-3 rounded-4 ms-3  "
+                    className="image-container  mt-3 rounded-0   "
                     style={{
                       width: "30%",
-                      height: "auto",
-                      boxShadow: "0 0.5rem 1rem rgba(176, 25, 25, 0.84)",
+                      height: "30 rem",
+                  
+                      
                     }}
                   >
                     <img
-                      className="img-fluid hover-overlay rounded-4  "
+                      className="img-fluid hover-overlay rounded-0  "
                       src={BASE_URL + "/api/posts/image/" + post.imageName}
                       alt="default"
                     ></img>
