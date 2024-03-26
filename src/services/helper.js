@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../authFunc";
 
-export const BASE_URL = "http://localhost:9090";
+export const BASE_URL = "https://da2e-42-107-87-142.ngrok-free.app";
 
 export const myAxios = axios.create({
   baseURL: BASE_URL,
